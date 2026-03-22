@@ -3,12 +3,6 @@ local mirrors = require("mirror_helpers")
 
 local O = {}
 
-O.AUTO_REENABLE_REMAPS = true
-O.DYNAMIC_SCROLL_LOCK = true
-O.DYNAMIC_SWAY_BINDS = true
-O.JOIN_WORLD_EVENTS = true
-O.LEAVE_WORLD_EVENTS = true
-
 O.SCREEN_WIDTH = 3840
 O.SCREEN_HEIGHT = 2160
 
@@ -22,8 +16,6 @@ O.HEIGHT = 0.0075
 
 O.NORMAL_SENS = 16
 O.MEASURE_SENS = 1
-
-O.TEST = "*-R"
 
 O.WIDE = "*-H"
 O.THIN = "*-X"

@@ -50,8 +50,6 @@ local config = {
 }
 
 config.actions = {
-	[options.TEST] = misc.move_mouse,
-
     [options.WIDE] = RESOLUTIONS.WIDE,
     [options.THIN] = RESOLUTIONS.THIN,
     [options.TALL] = RESOLUTIONS.TALL,
@@ -69,17 +67,17 @@ config.actions = {
 
 -- ==== STARTUP ====
 waywall.listen("load", function()
-    waywall.sleep(7500)
+    waywall.sleep(10000)
     waywall.listen("state", state.instance_state_checker())
 
     if not misc.is_nbb_running() then
-        waywall.sleep(15000)
+        waywall.sleep(5000)
         misc.toggle_nbb()
     end
 end)
 
 require("ww_temporary_ninbot.init").setup(config, {
-    timer_length = 10
+    timer_length = 15
 })
 
 return config
