@@ -25,21 +25,18 @@ M.lock_instance = function(inst_x, inst_y)
 	local x_pos = (options.SCREEN_WIDTH * options.X) + (((options.SCREEN_WIDTH * options.WIDTH) / (options.COLS * 2)) * (inst_x * 2 - 1))
     local y_pos = (options.SCREEN_HEIGHT * options.Y) + (((options.SCREEN_HEIGHT * options.HEIGHT) / (options.ROWS * 2)) * (inst_y * 2 - 1))
 
-	waywall.exec("ydotool mousemove -- -9999 -9999")
-	waywall.exec("ydotool mousemove -- " .. x_pos .. " " .. y_pos)
+	waywall.exec("ydotool mousemove -a -- " .. x_pos .. " " .. y_pos)
 	waywall.exec("ydotool click -D 0 0xC0")
 
 	waywall.sleep(45)
 
 	waywall.press_key("SPACE")
+	
+	return true
 end
 
-M.try_lock = function(key, inst_x, inst_y)
-	local state = waywall.state()
-	if state.screen ~= "wall" then
-		return false
-	end
-	M.lock_instance(inst_x, inst_y)
+M.try_lock = function(inst_x, inst_y)
+	return waywall.state().screen == "wall" and M.lock_instance(inst_x, inst_y)
 end
 
 M.is_nbb_running = function()

@@ -57,10 +57,6 @@ config.actions = {
     [options.TALL] = RESOLUTIONS.TALL,
     [options.MEASURE] = RESOLUTIONS.MEASURE,
 
-	[options.RESET_1] = function() return misc.try_lock(options.RESET_1, 1, 1) end,
-	[options.RESET_2] = function() return misc.try_lock(options.RESET_2, 2, 1) end,
-	[options.RESET_3] = function() return misc.try_lock(options.RESET_3, 3, 1) end,
-
     [options.FULLSCREEN] = waywall.toggle_fullscreen,
 
     [options.F3_T] = function() return misc.f3_shortcut("D") end,
