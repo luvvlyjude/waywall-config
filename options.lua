@@ -1,4 +1,5 @@
 local waywall = require("waywall")
+local mirrors = require("mirror_helpers")
 
 local O = {}
 
@@ -44,9 +45,22 @@ O.TOGGLE_NBB = "GRAVE"
 O.SUSPEND = "*-Alt_R"
 
 -- waywall rebinds affect keys sent by ydotool
-O.NORMAL_JOIN = "ydotool key -d 0 59:1 59:0 61:1 34:1 34:0 48:1 48:0 20:1 20:0 61:0"
-O.NORMAL_LEAVE = "ydotool key -d 0 66:1 66:0"
--- O.NORMAL_LEAVE = "ydotool key -d 0"
+if waywall.profile() == "seedqueue" then
+    O.NORMAL_JOIN = function()
+        waywall.exec("ydotool key -d 0 59:1 59:0 61:1 34:1 34:0 48:1 48:0 20:1 20:0 61:0")
+    end
+else
+    O.NORMAL_JOIN = function()
+    end
+end
+
+O.NORMAL_LEAVE = function()
+    waywall.set_resolution(0, 0)
+    mirrors.show_mirrors(false, false, false, false)
+    waywall.set_sensitivity(O.NORMAL_SENS)
+    waywall.exec("ydotool key -d 0 66:1 66:0")
+    waywall.show_floating(false)
+end
 
 O.REMAPS = {
     ["Q"] = "D",

@@ -11,13 +11,15 @@ M.set_scroll = function(state)
 		-- for i = 0, 150, 1 do
 		-- 	waywall.exec("jay input device " .. i .. " set-px-per-wheel-scroll 0")
 		-- end
-		waywall.exec("jay input device 48 set-px-per-wheel-scroll 0")
+		-- waywall.exec("jay input device 48 set-px-per-wheel-scroll 0")
+		-- waywall.exec("bash /home/jude/.config/waywall/jay_scroll.sh 0")
     else
 		-- waywall.exec("swaymsg input type:pointer scroll_factor 1.0")
 		-- for i = 0, 150, 1 do
 		-- 	waywall.exec("jay input device " .. i .. " set-px-per-wheel-scroll 15")
 		-- end
-		waywall.exec("jay input device 48 set-px-per-wheel-scroll 15")
+		-- waywall.exec("jay input device 48 set-px-per-wheel-scroll 15")
+		-- waywall.exec("bash /home/jude/.config/waywall/jay_scroll.sh 15")
     end
 end
 
@@ -34,9 +36,6 @@ end
 
 -- Run world joining commands if joining a world
 M.join_world_check = function(prev_state, new_state, callback)
-	if waywall.profile() == "ranked" then
-		return
-	end
 	if prev_state.screen ~= "inworld" and new_state.screen == "inworld" then
 		callback()
 	end
@@ -62,36 +61,15 @@ M.instance_state_checker = function()
 			new_state.screen = "previewing"
 		end
 
-		if options.AUTO_REENABLE_REMAPS then
-			waywall.set_remaps(options.REMAPS)
-		end
+		waywall.set_remaps(options.REMAPS)
 
-		if options.DYNAMIC_SCROLL_LOCK then
-			M.set_scroll(new_state)
-		end
+		M.set_scroll(new_state)
 
-		if options.DYNAMIC_SWAY_BINDS then
-			M.set_binds(new_state)
-		end
+		M.set_binds(new_state)
 
-		if options.JOIN_WORLD_EVENTS then
-			M.join_world_check(prev_state, new_state, function() waywall.exec(options.NORMAL_JOIN) end)
-		end
+		M.join_world_check(prev_state, new_state, options.NORMAL_JOIN)
 
-		if options.LEAVE_WORLD_EVENTS then
-			M.leave_world_check(prev_state, new_state, function()
-				waywall.set_resolution(0, 0)
-				res.res_disable()
-				-- SEEDQUEUE:
-				-- waywall.show_floating(false)
-				-- RANKED:
-				-- waywall.show_floating(true)
-				-- waywall.sleep(150)
-				-- waywall.exec(options.NORMAL_LEAVE)
-				-- waywall.sleep(150)
-				-- waywall.show_floating(false)
-			end)
-		end
+		M.leave_world_check(prev_state, new_state, options.NORMAL_LEAVE)
 
 		prev_state = new_state
 	end
