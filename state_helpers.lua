@@ -8,18 +8,12 @@ local M = {}
 M.set_scroll = function(state)
     if state.screen == "inworld" and state.inworld == "unpaused" then
 		-- waywall.exec("swaymsg input type:pointer scroll_factor 0.0")
-		-- for i = 0, 150, 1 do
-		-- 	waywall.exec("jay input device " .. i .. " set-px-per-wheel-scroll 0")
-		-- end
 		-- waywall.exec("jay input device 48 set-px-per-wheel-scroll 0")
-		-- waywall.exec("bash /home/jude/.config/waywall/jay_scroll.sh 0")
+		waywall.exec("bash /home/jude/.config/waywall/jay_scroll.sh 0")
     else
 		-- waywall.exec("swaymsg input type:pointer scroll_factor 1.0")
-		-- for i = 0, 150, 1 do
-		-- 	waywall.exec("jay input device " .. i .. " set-px-per-wheel-scroll 15")
-		-- end
 		-- waywall.exec("jay input device 48 set-px-per-wheel-scroll 15")
-		-- waywall.exec("bash /home/jude/.config/waywall/jay_scroll.sh 15")
+		waywall.exec("bash /home/jude/.config/waywall/jay_scroll.sh 15")
     end
 end
 
@@ -54,6 +48,14 @@ M.instance_state_checker = function()
 	
 	return function()
 		local new_state = waywall.state()
+		
+		-- the file flush for stateoutput file causes an update and retriggers for this file can
+		-- cause jay cli scroll sens changes in set_scroll to come in out of order, this fixes that
+		if new_state.screen == "inworld" and 
+		new_state.screen == prev_state.screen and 
+		new_state.inworld == prev_state.inworld then
+			return
+		end
 
 		-- some weird possible bug fix i found in jingle code
 		-- jingle/instance/statetracker line ~130
