@@ -35,6 +35,7 @@ O.F3_C = "*-C"
 
 O.TOGGLE_NBB = "GRAVE"
 O.SUSPEND = "*-Alt_R"
+O.UNSUSPEND = "*-Shift-Alt_R"
 
 -- waywall rebinds affect keys sent by ydotool
 if waywall.profile() == "seedqueue" then

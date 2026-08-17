@@ -40,7 +40,7 @@ M.try_lock = function(inst_x, inst_y)
 end
 
 M.is_nbb_running = function()
-    local handle = io.popen("pgrep -f 'Ninjabrain.*jar'")
+    local handle = io.popen("pgrep -fi 'java.*ninjabrain.*bot.*jar'")
     local result = handle:read("*l")
     handle:close()
     return result ~= nil
@@ -48,7 +48,9 @@ end
 
 M.toggle_nbb = function()
 	if not M.is_nbb_running() then
-		waywall.exec("java -Dawt.useSystemAAFontSettings=on -Dsun.java2d.uiScale=1.0 -jar " .. paths.nbb)
+		-- custom nix package for ninjabrain bot
+		-- waywall.exec("java -Dawt.useSystemAAFontSettings=on -Dsun.java2d.uiScale=1.0 -jar " .. paths.nbb)
+		waywall.exec(paths.nbb)
 		waywall.show_floating(true)
 	else
 		helpers.toggle_floating()

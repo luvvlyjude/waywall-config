@@ -63,6 +63,7 @@ config.actions = {
     [options.TOGGLE_NBB] = misc.toggle_nbb,
 
     [options.SUSPEND] = function() waywall.set_remaps({}) end,
+    [options.UNSUSPEND] = function() waywall.set_remaps(options.REMAPS) end,
 }
 
 -- ==== STARTUP ====

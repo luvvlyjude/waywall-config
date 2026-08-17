@@ -20,9 +20,11 @@ end
 -- Disable sway keybinds if unpaused ingame
 M.set_binds = function(state)
     if state.screen == "inworld" and state.inworld ~= "paused" then
+		-- DISABLED FOR TESTING TURN BACK ON
 		waywall.exec("ydotool key -d 0 194:1 194:0")
 		-- waywall.exec("swaymsg mode \"binds_disabled\"")
     else
+		-- DISABLED FOR TESTING TURN BACK ON
 		waywall.exec("ydotool key -d 0 193:1 193:0")
 		-- waywall.exec("swaymsg mode \"default\"")
     end
