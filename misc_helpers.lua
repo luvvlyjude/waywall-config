@@ -6,10 +6,10 @@ local options = require("options")
 local M = {}
 
 M.read_file = function(name)
-    local file = io.open(paths.home .. "/.config/waywall/" .. name, "r")
-    local data = file:read("*a")
-    file:close()
-    return data
+	local file = io.open(paths.home .. "/.config/waywall/" .. name, "r")
+	local data = file:read("*a")
+	file:close()
+	return data
 end
 
 -- Dynamic F3 shortcut
@@ -22,8 +22,10 @@ M.f3_shortcut = function(exception)
 end
 
 M.lock_instance = function(inst_x, inst_y)
-	local x_pos = (options.SCREEN_WIDTH * options.X) + (((options.SCREEN_WIDTH * options.WIDTH) / (options.COLS * 2)) * (inst_x * 2 - 1))
-    local y_pos = (options.SCREEN_HEIGHT * options.Y) + (((options.SCREEN_HEIGHT * options.HEIGHT) / (options.ROWS * 2)) * (inst_y * 2 - 1))
+	local x_pos = (options.SCREEN_WIDTH * options.X)
+		+ (((options.SCREEN_WIDTH * options.WIDTH) / (options.COLS * 2)) * (inst_x * 2 - 1))
+	local y_pos = (options.SCREEN_HEIGHT * options.Y)
+		+ (((options.SCREEN_HEIGHT * options.HEIGHT) / (options.ROWS * 2)) * (inst_y * 2 - 1))
 
 	waywall.exec("ydotool mousemove -a -- " .. x_pos .. " " .. y_pos)
 	waywall.exec("ydotool click -D 0 0xC0")
@@ -31,7 +33,7 @@ M.lock_instance = function(inst_x, inst_y)
 	waywall.sleep(45)
 
 	waywall.press_key("SPACE")
-	
+
 	return true
 end
 
@@ -40,10 +42,10 @@ M.try_lock = function(inst_x, inst_y)
 end
 
 M.is_nbb_running = function()
-    local handle = io.popen("pgrep -fi 'java.*ninjabrain.*bot.*jar'")
-    local result = handle:read("*l")
-    handle:close()
-    return result ~= nil
+	local handle = io.popen("pgrep -fi 'java.*ninjabrain.*bot.*jar'")
+	local result = handle:read("*l")
+	handle:close()
+	return result ~= nil
 end
 
 M.toggle_nbb = function()
@@ -55,7 +57,7 @@ M.toggle_nbb = function()
 	else
 		helpers.toggle_floating()
 	end
-end	
+end
 
 return M
 

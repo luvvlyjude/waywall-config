@@ -39,34 +39,33 @@ O.UNSUSPEND = "*-Shift-Alt_R"
 
 -- waywall rebinds affect keys sent by ydotool
 if waywall.profile() == "seedqueue" then
-    O.NORMAL_JOIN = function()
-        waywall.exec("ydotool key -d 0 59:1 59:0 61:1 34:1 34:0 48:1 48:0 20:1 20:0 61:0")
-    end
+	O.NORMAL_JOIN = function()
+		waywall.exec("ydotool key -d 0 59:1 59:0 61:1 34:1 34:0 48:1 48:0 20:1 20:0 61:0")
+	end
 else
-    O.NORMAL_JOIN = function()
-    end
+	O.NORMAL_JOIN = function() end
 end
 
 O.NORMAL_LEAVE = function()
-    waywall.set_resolution(0, 0)
-    mirrors.show_mirrors(false, false, false, false)
-    waywall.set_sensitivity(O.NORMAL_SENS)
-    waywall.exec("ydotool key -d 0 66:1 66:0")
-    waywall.show_floating(false)
+	waywall.set_resolution(0, 0)
+	mirrors.show_mirrors(false, false, false, false)
+	waywall.set_sensitivity(O.NORMAL_SENS)
+	waywall.exec("ydotool key -d 0 66:1 66:0")
+	waywall.show_floating(false)
 end
 
 O.REMAPS = {
-    ["Q"] = "D",
-    ["D"] = "N",
-    ["N"] = "S",
-    ["S"] = "E",
-    ["E"] = "O",
-    ["O"] = "Q",
+	["Q"] = "D",
+	["D"] = "N",
+	["N"] = "S",
+	["S"] = "E",
+	["E"] = "O",
+	["O"] = "Q",
 
-    ["Z"] = "P",
-    ["P"] = "Z",
+	["Z"] = "P",
+	["P"] = "Z",
 
-    ["LEFTMETA"] = "LEFTCTRL",
+	["LEFTMETA"] = "LEFTCTRL",
 }
 
 return O
